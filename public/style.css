@@ -114,3 +114,5 @@ button,input{font:inherit}button{cursor:pointer}
 .shield.top{top:0;left:0;right:0;height:56px}
 .shield.logo{bottom:0;right:46px;width:84px;height:40px}
 .msg-note{background:#fbf3e4;border:1px solid #ecdcb8;color:#6b5a2e;border-radius:10px;padding:10px 12px;font-size:12px;margin-bottom:10px}
+#player{position:relative}
+#player .shield.full{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:999!important;background:transparent!important;cursor:default}
