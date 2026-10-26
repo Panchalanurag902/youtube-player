@@ -5,7 +5,8 @@ function h(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=
 function fmt(v){const d=new Date(v);return isNaN(d)?'':d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
 function topicVideos(){const v=topic==='all'?feed.videos:feed.videos.filter(x=>x.category===topic);return v.slice().sort((a,b)=>b.publishedAt.localeCompare(a.publishedAt))}
 function localMatches(){const w=query.toLowerCase().split(/\s+/).filter(Boolean);return feed.videos.filter(v=>w.every(t=>(v.title+' '+v.channelTitle).toLowerCase().includes(t)))}
-function renderTopics(){const nav=$('topics');nav.textContent='';TOPICS.forEach(([val,label])=>{const b=h('button','topic-pill',label);b.type='button';b.setAttribute('aria-pressed',String(!query&&topic===val));b.onclick=()=>{topic=val;query='';token='';results=[];limitedMsg='';$('q').value='';render()};nav.appendChild(b)})}
+function renderTopics(){const nav=$('topics');nav.textContent='';TOPICS.forEach(([val,label])=>{const b=h('button','topic-pill',label);b.type='button';b.setAttribute('aria-pressed',String(!query&&topic===val));b.onclick=()=>{stopPlayer();topic=val;query='';token='';results=[];limitedMsg='';$('q').value='';render()};nav.appendChild(b)})}
+function stopPlayer(){selected=null;const p=$('player');p.textContent='';const w=h('div','player-placeholder');w.appendChild(h('p',null,'Choose a video to start watching'));p.appendChild(w);const m=$('meta');m.textContent=''}
 function play(v){selected=v;const p=$('player');p.textContent='';const f=document.createElement('iframe');
   f.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(v.videoId)+'?autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&controls=0&disablekb=1&fs=0';
   f.title='Video player: '+v.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.referrerPolicy='strict-origin-when-cross-origin';
@@ -36,8 +37,8 @@ async function runSearch(more){if(busy)return;busy=true;limitedMsg='';loading=!m
     else{const seen=new Set(more?results.map(v=>v.videoId):[]);results=(more?results:[]).concat(d.items.filter(v=>!seen.has(v.videoId)));token=d.nextPageToken||''}
   }catch(e){limitedMsg='Live search is resting for now. Showing matching videos from our daily feed.';results=localMatches();token=''}
   busy=false;loading=false;render()}
-$('searchForm').onsubmit=e=>{e.preventDefault();const q=$('q').value.trim();if(q.length<2)return;query=q;token='';results=[];selected=null;runSearch(false)};
-$('back').onclick=()=>{query='';token='';results=[];limitedMsg='';$('q').value='';render()};
+$('searchForm').onsubmit=e=>{e.preventDefault();const q=$('q').value.trim();if(q.length<2)return;stopPlayer();query=q;token='';results=[];runSearch(false)};
+$('back').onclick=()=>{stopPlayer();query='';token='';results=[];limitedMsg='';$('q').value='';render()};
 $('more').onclick=()=>runSearch(true);
 fetch('/feed.json').then(r=>r.json()).then(d=>{feed=d}).catch(()=>{}).finally(()=>{loading=false;render()});
 render();
