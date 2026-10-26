@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AllRoundUpdate Video Feed</title>
+<meta name="description" content="Watch useful finance, tech, news, jobs and exam videos without leaving AllRoundUpdate.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head><body>
+<main class="app-shell">
+<header class="topbar">
+  <a class="brand" href="/" aria-label="AllRoundUpdate home"><span class="brand-mark">&#9654;</span><span class="brand-name">AllRound<span>Update</span></span></a>
+  <form class="top-search" id="searchForm" role="search">
+    <label class="sr-only" for="q">Search videos</label>
+    <input id="q" type="search" placeholder="Search any topic or channel" minlength="2" maxlength="100">
+    <button class="search-submit" type="submit" aria-label="Search">&#128269;</button>
+  </form>
+  <span class="region-tag">INDIA &middot; IN</span>
+</header>
+<div class="page-wrap">
+  <div class="page-heading">
+    <div><span class="eyebrow">The useful watchlist</span><h1>Good videos. Right on topic.</h1>
+    <p>Practical explainers and public updates, picked for your next few minutes.</p></div>
+    <div class="updated-note" id="updated"></div>
+  </div>
+  <nav class="category-rail" id="topics" aria-label="Browse video topics"></nav>
+  <section class="content-panel">
+    <div class="panel-header">
+      <div class="panel-title"><span class="live-dot"></span><h2 id="title"></h2></div>
+      <button class="retry-button" id="back" type="button" hidden>&larr; Back to topics</button>
+    </div>
+    <div class="feed-layout">
+      <section class="player-column">
+        <div class="player-frame-shell"><div class="player-frame" id="player">
+          <div class="player-placeholder"><p>Choose a video to start watching</p></div>
+        </div></div>
+        <div class="selected-meta" id="meta"></div>
+      </section>
+      <section class="results-column">
+        <div class="results-head"><strong id="listTitle">Up next</strong><span id="count"></span></div>
+        <div id="msg"></div>
+        <div class="video-list" id="list"></div>
+        <button class="load-more" id="more" type="button" hidden>Load more videos</button>
+      </section>
+    </div>
+  </section>
+  <p class="footer-note">Public videos selected by topic. No private YouTube account or subscriptions are connected.</p>
+</div></main>
+<script src="/app.js"></script>
+</body></html>
